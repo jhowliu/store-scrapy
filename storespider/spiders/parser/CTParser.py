@@ -18,12 +18,10 @@ class CTParser(StoreParser):
         emp_list = []
 
         tags = self.soup.select('div.bestTeam li')
-        print(len(tags))
         for tag in tags:
             emp_list.append(self.fill_out_webagent(tag))
 
-        print(emp_list)
-
+        return store_infos, emp_list
 
     def get_store_hash_id(self):
         hashid = hashlib.sha1('%s-%s-%s' % (self.casefrom, self.get_store_id(), self.date)).hexdigest()

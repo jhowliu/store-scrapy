@@ -7,6 +7,8 @@ from scrapy.http import FormRequest
 from storespider.spiders import config
 from storespider.spiders.parser import CTParser
 
+from storespider.items import Store, Employee
+
 class MainSpider(scrapy.Spider):
     name = 'web-store'
 
@@ -41,8 +43,10 @@ class MainSpider(scrapy.Spider):
         logging.info('%s - %s' % (store, response.url))
 
         if store == 'CTHouse':
-           CTParser(response.body, response.url).start_parse()
+           store, emp_list = CTParser(response.body, response.url).start_parse()
 
-    def parse_agent(self, response):
-        logging.info(response.url)
+           yield Store(store)
+           for emp in emp_list:
+               yield Employee(emp)
+
 

@@ -72,7 +72,7 @@ class StoreParser(object):
         # WEB_STORED
         city, area = self.get_splited_address()
 
-        WEB_STORED['idx'] = self.get_store_hash_id()
+        WEB_STORED['ID'] = self.get_store_hash_id()
         WEB_STORED['CaseFrom'] = self.casefrom
 	WEB_STORED['ContactStore'] = self.get_store_name()
 	WEB_STORED['ContactStoreID'] = self.get_store_id()
@@ -94,7 +94,7 @@ class StoreParser(object):
     def fill_out_webagent(self, soup):
         # WEB_AGENT
 
-	WEB_AGENT['id'] = self.get_employee_hash_id(soup)
+	WEB_AGENT['ID'] = self.get_employee_hash_id(soup)
         WEB_AGENT['CaseFrom'] = self.casefrom
 	WEB_AGENT['ContactStore'] = self.get_store_name()
 	WEB_AGENT['ContactStoreID'] = self.get_store_id()
