@@ -42,5 +42,5 @@ class MainSpider(scrapy.Spider):
         store = response.meta['store']
 
         if store == 'CTHouse':
-           CTParser(response.body).start_parse()
+           CTParser(response.body, response.url).start_parse()
 

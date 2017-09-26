@@ -5,10 +5,13 @@ import hashlib
 from schema import WEB_STORED
 from schema import WEB_AGENT
 
+from utils import split_address
+
 class StoreParser(object):
-    def __init__(self, html=None):
+    def __init__(self, html=None, url=None):
         self.date = time.strftime("%Y-%m-%d")
         self.html = html
+        self.url = url
         self.init()
 
     def init(self):
@@ -58,18 +61,19 @@ class StoreParser(object):
 
     def get_splited_address(self):
         addr = self.get_address()
-        splited_addr = SPLIT_ADDR(addr.encode('utf-8'))
+        target = split_address(addr)
 
-        city = splited_addr[0].decode('utf-8') if len(splited_addr)>0 else ""
-        district = splited_addr[1].decode('utf-8') if len(splited_addr)>1 else ""
+        city = target['city'] if 'city' in target else ""
+        area = target['area'] if 'area' in target else ""
 
-        return city, district
+        return city, area
 
 
     def fill_out_webstored(self):
 
         # WEB_STORED
-        #city, district = self.get_splited_address()
+        city, area = self.get_splited_address()
+
         WEB_STORED['idx'] = self.get_store_hash_id()
         WEB_STORED['CaseFrom'] = self.casefrom
 	WEB_STORED['ContactStore'] = self.get_store_name()
@@ -80,9 +84,10 @@ class StoreParser(object):
 	WEB_STORED['CaseSystem'] = self.get_case_system()
         WEB_STORED['ContactFAX'] = self.get_fax_number()
         WEB_STORED['ContactEMail'] = self.get_mail()
-	WEB_STORED['District'] = district
+	WEB_STORED['District'] = area
 	WEB_STORED['City'] = city
-        #print(WEB_STORED)
+
+        print(WEB_STORED)
 	#self.commit.sendDatabaseRemote(WEB_STORED, time.time())
 
 
