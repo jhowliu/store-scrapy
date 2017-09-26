@@ -21,6 +21,7 @@ class Store(scrapy.Item):
     District = scrapy.Field()
     City = scrapy.Field()
 
+
 class Employee(scrapy.Item):
     ID = scrapy.Field()
     CaseFrom = scrapy.Field()
