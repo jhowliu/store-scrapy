@@ -10,7 +10,7 @@ Base = declarative_base(engine)
     ORM SCHEMA LOAD FROM DATABASE
 """
 class WebStore(Base):
-    __tablename__ = 'WebStore'
+    __tablename__ = 'WebStored'
     __table_args__ = { 'autoload': True }
 
 class WebAgent(Base):
