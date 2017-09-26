@@ -6,8 +6,13 @@
 # See: http://doc.scrapy.org/en/latest/topics/item-pipeline.html
 
 from storespider.items import Employee, Store
+from storespider.orm.control import insert_store, insert_employee
 
 class StorespiderPipeline(object):
     def process_item(self, item, spider):
-        print(type(item) == Store)
+        if type(item) == Store:
+            insert_store(item)
+        else:
+            insert_employee(item)
+
         return item
