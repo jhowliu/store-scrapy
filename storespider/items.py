@@ -7,8 +7,35 @@
 
 import scrapy
 
+class Store(scrapy.Item):
+    ID = scrapy.Field()
+    DateTime = scrapy.Field()
+    CaseFrom = scrapy.Field()
+    ContactStore = scrapy.Field()
+    ContactStoreID = scrapy.Field()
+    ContactTel = scrapy.Field()
+    ContactUrl = scrapy.Field()
+    ContactAddr = scrapy.Field()
+    ContactFAX = scrapy.Field()
+    ContactEMail = scrapy.Field()
+    CaseSystem = scrapy.Field()
+    District = scrapy.Field()
+    City = scrapy.Field()
 
-class StorespiderItem(scrapy.Item):
-    # define the fields for your item here like:
-    # name = scrapy.Field()
-    pass
+
+class Employee(scrapy.Item):
+    ID = scrapy.Field()
+    DateTime = scrapy.Field()
+    CaseFrom = scrapy.Field()
+    City = scrapy.Field()
+    District = scrapy.Field()
+    ContactStoreID = scrapy.Field()
+    ContactStore = scrapy.Field()
+    EmpTitle = scrapy.Field()
+    EmpName = scrapy.Field()
+    EmpNameBinary = scrapy.Field()
+    EmpMobile = scrapy.Field()
+    EmpEMail = scrapy.Field()
+    LicenseB = scrapy.Field()
+    LicenseA = scrapy.Field()
+
