@@ -1,5 +1,6 @@
 WEB_STORED = {
     'ID': "",
+    'DateTime': "",
     'CaseFrom': "",
     'ContactStoreID': "",
     'CaseSystem': "",
@@ -16,6 +17,7 @@ WEB_STORED = {
 
 WEB_AGENT = {
     'ID': "",
+    'DateTime': "",
     'CaseFrom': "",
     'ContactStoreID': "",
     'ContactStore': "",
