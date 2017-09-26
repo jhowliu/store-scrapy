@@ -9,6 +9,7 @@ import scrapy
 
 class Store(scrapy.Item):
     ID = scrapy.Field()
+    DateTime = scrapy.Field()
     CaseFrom = scrapy.Field()
     ContactStore = scrapy.Field()
     ContactStoreID = scrapy.Field()
@@ -24,6 +25,7 @@ class Store(scrapy.Item):
 
 class Employee(scrapy.Item):
     ID = scrapy.Field()
+    DateTime = scrapy.Field()
     CaseFrom = scrapy.Field()
     City = scrapy.Field()
     District = scrapy.Field()

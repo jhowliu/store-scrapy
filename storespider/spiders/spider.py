@@ -22,7 +22,7 @@ class MainSpider(scrapy.Spider):
                 payload = config.CT_HOUSE_PAYLOAD
                 meta = { 'store': store, 'payload': payload }
 
-                for city in config.CITIES[:2]:
+                for city in config.CITIES:
                     payload['arg'] = ('%s-city/' % city)
                     yield FormRequest(url=url, callback=self.crawl_entities, \
                                 formdata=payload, meta=meta)
@@ -32,7 +32,7 @@ class MainSpider(scrapy.Spider):
         store = response.meta['store']
 
         if store == 'CTHouse':
-            for entry in response.css('div.list div.n')[:1]:
+            for entry in response.css('div.list div.n'):
                 links = entry.css('a::attr(href)').extract()
                 if len(links) > 1:
                     yield scrapy.Request(url=links[1], callback=self.parse_store, \

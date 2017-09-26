@@ -7,17 +7,18 @@ def insert_store(item):
     logging.info("<INSERT STORE> - %s" % item['ID'])
 
     value = WebStore(idx=item['ID'],
-                       CaseFrom=item['CaseFrom'],
-                       CaseSystem=item['CaseSystem'],
-                       ContactStore=item['ContactStore'],
-                       ContactStoreID=item['ContactStoreID'],
-                       ContactTel=item['ContactTel'],
-                       ContactFAX=item['ContactFAX'],
-                       ContactUrl=item['ContactUrl'],
-                       ContactAddr=item['ContactAddr'],
-                       ContactEMail=item['ContactEMail'],
-                       City=item['City'],
-                       District=item['District'])
+                     KeyinDate=item['DateTime'],
+                     CaseFrom=item['CaseFrom'],
+                     CaseSystem=item['CaseSystem'],
+                     ContactStore=item['ContactStore'],
+                     ContactStoreID=item['ContactStoreID'],
+                     ContactTel=item['ContactTel'],
+                     ContactFAX=item['ContactFAX'],
+                     ContactUrl=item['ContactUrl'],
+                     ContactAddr=item['ContactAddr'],
+                     ContactEMail=item['ContactEMail'],
+                     City=item['City'],
+                     District=item['District'])
 
     row = sess.query(WebStore).filter_by(idx=item['ID']).first()
 
@@ -30,6 +31,7 @@ def insert_employee(item):
     logging.info("<INSERT AGENT> - %s" % item['ID'])
 
     value = WebAgent(id=item['ID'],
+                     KeyinDate=item['DateTime'],
                      CaseFrom=item['CaseFrom'],
                      ContactStore=item['ContactStore'],
                      ContactStoreID=item['ContactStoreID'],
@@ -41,7 +43,7 @@ def insert_employee(item):
                      City=item['City'],
                      District=item['District'])
 
-    row = sess.query(WebAgent).filter_by(idx=item['ID']).first()
+    row = sess.query(WebAgent).filter_by(id=item['ID']).first()
 
     if (not row):
         sess.add(value)
