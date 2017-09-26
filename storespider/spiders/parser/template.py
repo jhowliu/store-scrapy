@@ -18,14 +18,11 @@ class StoreParser(object):
         pass
 
     def start_parse(self):
-        self.fill_out_webstored()
-        #self.fill_out_webagent()
+        pass
 
     # employee primary key
-    def _employee_hash_id(self):
-        concated = "%s:%s:%s" % (self.store_id, self.emp_name, self.date)
-        return hashlib.sha1(concated).hexdigest()
-
+    def get_employee_hash_id(self):
+        pass
     def get_store_hash_id(self):
         pass
     def get_store_link(self):
@@ -44,8 +41,10 @@ class StoreParser(object):
         pass
     def get_case_system(self):
         pass
-    def get_employee_links(self, store_link):
-        pass
+
+    def get_employee(self, soup):
+        return fill_out_webagent(soup)
+
     def get_employee_name(self, soup):
         pass
     def get_employee_mail(self, soup):
@@ -56,8 +55,6 @@ class StoreParser(object):
         pass
     def get_employee_title(self, soup):
         pass
-    def parse_employee_info(self):
-        pass
 
     def get_splited_address(self):
         addr = self.get_address()
@@ -67,6 +64,7 @@ class StoreParser(object):
         area = target['area'] if 'area' in target else ""
 
         return city, area
+
 
 
     def fill_out_webstored(self):
@@ -90,21 +88,24 @@ class StoreParser(object):
         print(WEB_STORED)
 	#self.commit.sendDatabaseRemote(WEB_STORED, time.time())
 
+        return WEB_STORED.copy()
+
 
     def fill_out_webagent(self, soup):
         # WEB_AGENT
 
-	WEB_AGENT['WebAgent']['id'] = self._employee_hash_id()
-        WEB_AGENT['WebAgent']['CaseFrom'] = self.casefrom
-	WEB_AGENT['WebAgent']['ContactStore'] = self.get_store_name()
-	WEB_AGENT['WebAgent']['ContactStoreID'] = self.get_store_id()
-	WEB_AGENT['WebAgent']['EmpName'] = self.get_employee_name(soup)
-	WEB_AGENT['WebAgent']['EmpMobile'] = self.get_employee_mobile(soup)
-	WEB_AGENT['WebAgent']['EmpEMail'] = self.get_employee_mail(soup)
-	WEB_AGENT['WebAgent']['EmpTitle'] = self.get_employee_title(soup)
-	WEB_AGENT['WebAgent']['LicenseB'] = self.get_employee_license(soup)
-	WEB_AGENT['WebAgent']['District'] = WEB_STORED['WebStored']['District']
-	WEB_AGENT['WebAgent']['City'] = WEB_STORED['WebStored']['City']
+	WEB_AGENT['id'] = self.get_employee_hash_id(soup)
+        WEB_AGENT['CaseFrom'] = self.casefrom
+	WEB_AGENT['ContactStore'] = self.get_store_name()
+	WEB_AGENT['ContactStoreID'] = self.get_store_id()
+	WEB_AGENT['EmpName'] = self.get_employee_name(soup)
+	WEB_AGENT['EmpMobile'] = self.get_employee_mobile(soup)
+	WEB_AGENT['EmpEMail'] = self.get_employee_mail(soup)
+	WEB_AGENT['EmpTitle'] = self.get_employee_title(soup)
+	WEB_AGENT['LicenseB'] = self.get_employee_license(soup)
+	WEB_AGENT['District'] = WEB_STORED['District']
+	WEB_AGENT['City'] = WEB_STORED['City']
 
         #print(WEB_AGENT)
 	#self.commit.sendDatabaseRemote(WEB_AGENT, time.time())
+        return WEB_AGENT.copy()

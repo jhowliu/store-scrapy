@@ -30,17 +30,19 @@ class MainSpider(scrapy.Spider):
         store = response.meta['store']
 
         if store == 'CTHouse':
-            for entry in response.css('div.list div.n'):
+            for entry in response.css('div.list div.n')[:1]:
                 links = entry.css('a::attr(href)').extract()
                 if len(links) > 1:
-                    yield scrapy.Request(url=links[1], callback=self.parse_page, \
+                    yield scrapy.Request(url=links[1], callback=self.parse_store, \
                                 meta=response.meta)
 
-
-    def parse_page(self, response):
-        logging.info(response.url)
+    def parse_store(self, response):
         store = response.meta['store']
+        logging.info('%s - %s' % (store, response.url))
 
         if store == 'CTHouse':
            CTParser(response.body, response.url).start_parse()
+
+    def parse_agent(self, response):
+        logging.info(response.url)
 

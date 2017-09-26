@@ -1,3 +1,4 @@
+# -*- coding=utf-8 -*-
 import re
 import hashlib
 import logging
@@ -11,6 +12,18 @@ class CTParser(StoreParser):
     def init(self):
         self.casefrom = 'CTHouse'
         self.soup = BeautifulSoup(self.html, 'html.parser')
+
+    def start_parse(self):
+        store_infos = self.fill_out_webstored()
+        emp_list = []
+
+        tags = self.soup.select('div.bestTeam li')
+        print(len(tags))
+        for tag in tags:
+            emp_list.append(self.fill_out_webagent(tag))
+
+        print(emp_list)
+
 
     def get_store_hash_id(self):
         hashid = hashlib.sha1('%s-%s-%s' % (self.casefrom, self.get_store_id(), self.date)).hexdigest()
@@ -59,3 +72,29 @@ class CTParser(StoreParser):
     def get_case_system(self):
         pass
 
+    def get_employee_hash_id(self, soup):
+        concated = "%s-%s-%s" % (self.get_store_id(), self.get_employee_name(soup).encode('utf-8'), self.date)
+        return hashlib.sha1(concated).hexdigest()
+
+    def get_employee_name(self, soup):
+        tags = soup.select('b')
+        name = tags[0].text.strip() if len(tags) else ""
+        logging.info('<CTHouse> - Employee name - %s' % name)
+
+        return name
+
+    def get_employee_mail(self, soup):
+        pass
+
+    def get_employee_mobile(self, soup):
+        tags = soup.select('a.on')
+        mobile = tags[0]['mobile'] if len(tags) else ""
+        logging.info('<CTHouse> - Employee mobile - %s' % mobile)
+
+        return mobile
+
+    def get_employee_license(self, soup):
+        pass
+
+    def get_employee_title(self, soup):
+        return u'營業員'
