@@ -60,10 +60,14 @@ class MainSpider(scrapy.Spider):
 
                 for i in range(1, int(final_page)):
                     logging.info('%s - start crawling page: %d/%d' % (store, i, int(final_page)))
-                    soup = BeautifulSoup(self.worker.execute_script('return document.body.innerHTML'), 'html.parser')
-                    meta['soup'] = soup
+                    html = self.worker.execute_script('return document.body.innerHTML')
+                    if (not html): continue
+
+                    meta['soup'] = BeautifulSoup(html, 'html.parser')
+
                     yield scrapy.Request(url=url, callback=self.crawl_entries, meta=meta, dont_filter=True)
-                    click = self.worker.execute_script('$("ul.base__list__pagenum li:contains(%d)")[0].click()' % (i+1))
+
+                    click = self.worker.execute_script('$("ul.base__list__pagenum li:contains(\'%s\')")[0].click()' % '>')
                     if click == False:
                         self.worker.reopen()
 
