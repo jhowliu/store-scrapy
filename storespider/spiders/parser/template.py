@@ -91,7 +91,6 @@ class StoreParser(object):
 
     def fill_out_webagent(self, soup):
         # WEB_AGENT
-
 	WEB_AGENT['id'] = self.get_employee_hash_id(soup)
         WEB_AGENT['KeyinDate'] = self.date
         WEB_AGENT['CaseFrom'] = self.casefrom

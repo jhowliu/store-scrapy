@@ -10,7 +10,6 @@ from storespider.orm.control import insert_store, insert_employee
 
 class StorespiderPipeline(object):
     def process_item(self, item, spider):
-
         if type(item) == Store:
             insert_store(item)
         else:
