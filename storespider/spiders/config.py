@@ -29,7 +29,6 @@ CT_HOUSE_PAYLOAD = {
     'page':'1'
 }
 
-TAIWAN_HOUSE_HEADERS = {
-    'Referer': 'http://www.twhg.com.tw/object_list-A.php',
-    'Origin' : 'http://www.twhg.com.tw'
-}
+TAIWAN_STORE='http://house.twhg.com.tw/stores'
+
+HBHOUSE_STORE_HOST='http://www.hbhousing.com.tw'
