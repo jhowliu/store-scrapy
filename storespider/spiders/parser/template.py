@@ -72,7 +72,8 @@ class StoreParser(object):
         # WEB_STORED
         city, area = self.get_splited_address()
 
-        WEB_STORED['ID'] = self.get_store_hash_id()
+        WEB_STORED['idx'] = self.get_store_hash_id()
+        WEB_STORED['KeyinDate'] = self.date
         WEB_STORED['CaseFrom'] = self.casefrom
 	WEB_STORED['ContactStore'] = self.get_store_name()
 	WEB_STORED['ContactStoreID'] = self.get_store_id()
@@ -85,16 +86,14 @@ class StoreParser(object):
 	WEB_STORED['District'] = area
 	WEB_STORED['City'] = city
 
-        print(WEB_STORED)
-	#self.commit.sendDatabaseRemote(WEB_STORED, time.time())
-
         return WEB_STORED.copy()
 
 
     def fill_out_webagent(self, soup):
         # WEB_AGENT
 
-	WEB_AGENT['ID'] = self.get_employee_hash_id(soup)
+	WEB_AGENT['id'] = self.get_employee_hash_id(soup)
+        WEB_AGENT['KeyinDate'] = self.date
         WEB_AGENT['CaseFrom'] = self.casefrom
 	WEB_AGENT['ContactStore'] = self.get_store_name()
 	WEB_AGENT['ContactStoreID'] = self.get_store_id()
@@ -106,6 +105,4 @@ class StoreParser(object):
 	WEB_AGENT['District'] = WEB_STORED['District']
 	WEB_AGENT['City'] = WEB_STORED['City']
 
-        #print(WEB_AGENT)
-	#self.commit.sendDatabaseRemote(WEB_AGENT, time.time())
         return WEB_AGENT.copy()

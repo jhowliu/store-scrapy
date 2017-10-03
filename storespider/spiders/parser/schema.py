@@ -1,5 +1,5 @@
 WEB_STORED = {
-    'ID': "",
+    'idx': "",
     'CaseFrom': "",
     'ContactStoreID': "",
     'CaseSystem': "",
@@ -10,12 +10,13 @@ WEB_STORED = {
     'ContactAddr': "",
     'ContactUrl': "",
     'City': "",
+    'KeyinDate': "",
     'District': ""
 }
 
 
 WEB_AGENT = {
-    'ID': "",
+    'id': "",
     'CaseFrom': "",
     'ContactStoreID': "",
     'ContactStore': "",
@@ -24,6 +25,7 @@ WEB_AGENT = {
     'EmpTitle': "",
     'EmpName': "",
     'EmpMobile': "",
+    'KeyinDate': "",
     'EmpEMail': "",
     'LicenseB': "",
 }

@@ -19,11 +19,11 @@ def split_address(address):
     for ix, city in enumerate(CITY_LIST):
         if city in address:
             target['city'] = city
-            address.replace(city, '')
+            address=address.replace(city, '')
             for area in AREA_LIST[ix]:
                 if area in address:
                     target['area'] = area
-                    address.replace(area, '')
+                    address = address.replace(area, '')
                     break
 
     target['road'] = address
