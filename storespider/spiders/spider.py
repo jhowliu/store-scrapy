@@ -1,5 +1,6 @@
 # -*- coding:utf-8 -*-
 import scrapy
+import time
 import math
 import logging
 
@@ -22,9 +23,9 @@ class MainSpider(scrapy.Spider):
 
     def start_requests(self):
         start_urls = {
-            #'CTHouse': 'https://www.cthouse.com.tw/FranchiseList.aspx',
+            'CTHouse': 'https://www.cthouse.com.tw/FranchiseList.aspx',
+            'HBHouse' : 'http://www.hbhousing.com.tw/franchise',
             'Taiwan' : 'http://www.twhg.com.tw/stores.php',
-            #'HBHouse' : 'http://www.hbhousing.com.tw/franchise'
         }
 
         for store, url in start_urls.items():
@@ -40,7 +41,8 @@ class MainSpider(scrapy.Spider):
                                 formdata=payload, meta=meta)
 
             elif store == 'Taiwan':
-                for city in config.CITIES:
+                logging.info('Start crawling task - %s' % store)
+                for city in config.CITIES[:1]:
                     page_url = '?'.join([url, 'city=%s'%city])
                     self.worker.get(page_url)
                     total = self.worker.execute_script('return $("span.total_page")[0].innerText')
@@ -60,6 +62,7 @@ class MainSpider(scrapy.Spider):
                         if clicked == False: break
 
             elif store == 'HBHouse':
+                logging.info('Start crawling task - %s' % store)
                 self.worker.get(url)
                 final_page = self.worker.execute_script('return $("ul.base__list__pagenum li")[7].innerText')
 
@@ -74,7 +77,7 @@ class MainSpider(scrapy.Spider):
                     clicked = self.worker.execute_script('$("ul.base__list__pagenum li:contains(\'%s\')")[0].click()' % '>')
                     if clicked == False: break
 
-            self.worker.close()
+        self.worker.close()
 
 
     def crawl_entries(self, response):
