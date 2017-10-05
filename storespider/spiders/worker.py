@@ -36,6 +36,8 @@ class Worker(object):
                     return result
                 except Exception as ex:
                     traceback.print_exc()
+                    time.sleep(300)
+                    self.worker.refresh()
                     retries-=1
             return False
         return wrapper
