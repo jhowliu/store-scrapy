@@ -42,7 +42,7 @@ class MainSpider(scrapy.Spider):
 
             elif store == 'Taiwan':
                 logging.info('Start crawling task - %s' % store)
-                for city in config.CITIES[:1]:
+                for city in config.CITIES:
                     page_url = '?'.join([url, 'city=%s'%city])
                     self.worker.get(page_url)
                     total = self.worker.execute_script('return $("span.total_page")[0].innerText')
